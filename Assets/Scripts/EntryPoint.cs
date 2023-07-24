@@ -8,12 +8,14 @@ namespace Platformer
     {
         [SerializeField] private Player player;
         [SerializeField] private PlayerConfig config;
+        [SerializeField] private CameraController cameraController;
 
 
         private void Awake()
         {
             IPlayerInput playerInput = GetPlayerInput();
             player.Construct(playerInput, config);
+            cameraController.Construct(player.transform);
 
             player.Initialize();
         }
