@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dino
       objectReference: {fileID: 0}
+    - target: {fileID: 8126349356711913883, guid: 9c6eb73f1372c2a4daf01975f9da5765, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c6eb73f1372c2a4daf01975f9da5765, type: 3}
 --- !u!114 &1222031692 stripped

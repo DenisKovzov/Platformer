@@ -15,6 +15,11 @@ namespace Platformer
         private float horizontal;
         private Rigidbody2D rigidBody;
 
+        public bool IsRunning => input.IsRunning();
+        public Vector2 Velocity => rigidBody.velocity;
+        public event Action OnJump;
+        public event Action OnGround;
+
 
         public void Construct(IPlayerInput input, PlayerConfig config)
         {
@@ -55,6 +60,9 @@ namespace Platformer
         private void ApplyGravity()
         {
             rigidBody.velocity += Vector2.up * config.Gravity * Time.deltaTime;
+
+            if (rigidBody.velocity.y < 0f && IsGrounded())
+                OnGround?.Invoke();
         }
 
         private void Jump()
@@ -62,6 +70,7 @@ namespace Platformer
             if (IsGrounded())
             {
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, Mathf.Sqrt(2 * config.JumpHeight * Mathf.Abs(config.Gravity)));
+                OnJump?.Invoke();
             }
         }
 
