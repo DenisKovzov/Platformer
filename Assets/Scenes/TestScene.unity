@@ -184,8 +184,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1222031692}
-  config: {fileID: 11400000, guid: f45c57c9e77f53140a5df268ff2e0e71, type: 2}
+  playerConfig: {fileID: 11400000, guid: f45c57c9e77f53140a5df268ff2e0e71, type: 2}
   cameraController: {fileID: 519420030}
+  environment:
+    waterList:
+    - {fileID: 1767462420}
+  environmentConfig: {fileID: 11400000, guid: 354df662becbbb643a9cbcc3c4ac24a4, type: 2}
 --- !u!4 &9004396
 Transform:
   m_ObjectHideFlags: 0
@@ -1303,6 +1307,8 @@ GameObject:
   - component: {fileID: 1767462418}
   - component: {fileID: 1767462417}
   - component: {fileID: 1767462419}
+  - component: {fileID: 1767462421}
+  - component: {fileID: 1767462420}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -1666,7 +1672,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.85882354, b: 0, a: 1}
   m_Origin: {x: -6, y: -5, z: 0}
   m_Size: {x: 17, y: 5, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -1704,6 +1710,30 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &1767462420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767462415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7427823bee5e6d4aa055d1bb1cd3f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1767462421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767462415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892be58ff9cc1947af133a5b8166c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1942164450
 GameObject:
   m_ObjectHideFlags: 0

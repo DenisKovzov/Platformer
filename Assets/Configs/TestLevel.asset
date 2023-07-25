@@ -9,16 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa8ce52ef6dc6c64fae7a137d6f008fe, type: 3}
-  m_Name: dino
+  m_Script: {fileID: 11500000, guid: 4658c3c7ce7a60b4a96edce9faa24290, type: 3}
+  m_Name: TestLevel
   m_EditorClassIdentifier: 
-  config:
-    WalkSpeed: 2
-    RunSpeed: 3
-    JumpHeight: 3
-    Gravity: -10
-    GroundMask:
-      serializedVersion: 2
-      m_Bits: 64
-    size: {x: 0.44, y: 0.01}
-    MaxHealthPoint: 3
+  water:
+    Damage: 999

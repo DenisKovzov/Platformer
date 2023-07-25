@@ -6,22 +6,23 @@ using UnityEngine;
 namespace Platformer
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player : MonoBehaviour, IInitializable
+    public class Player : MonoBehaviour, IDamageable, IInitializable
     {
         [SerializeField] private Transform groundDetection;
         private IPlayerInput input;
-        private PlayerConfig config;
+        private PlayerData config;
 
         private float horizontal;
         private Rigidbody2D rigidBody;
+        private float currentHealthPoint;
 
         public bool IsRunning => input.IsRunning();
         public Vector2 Velocity => rigidBody.velocity;
         public event Action OnJump;
         public event Action OnGround;
+        public event Action OnDeath;
 
-
-        public void Construct(IPlayerInput input, PlayerConfig config)
+        public void Construct(IPlayerInput input, PlayerData config)
         {
             this.input = input;
             this.config = config;
@@ -30,6 +31,7 @@ namespace Platformer
         public void Initialize()
         {
             // TODO add unsubscribe
+            currentHealthPoint = config.MaxHealthPoint;
             input.OnJump += Jump;
         }
 
@@ -79,7 +81,21 @@ namespace Platformer
             return Physics2D.OverlapBox(groundDetection.position, config.size, 0f, config.GroundMask);
         }
 
+        public void ApplyDamage(float value)
+        {
+            if (value < 0)
+            {
+                Debug.LogError($"Damage is less than zero: {value}", this);
+            }
 
+            currentHealthPoint -= value;
+            if (currentHealthPoint < 0)
+            {
+                currentHealthPoint = 0;
+                OnDeath?.Invoke();
+            }
+
+        }
 
         private void OnDrawGizmosSelected()
         {
@@ -89,5 +105,21 @@ namespace Platformer
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(groundDetection.position, config.size);
         }
+    }
+    
+    [Serializable]
+    public struct PlayerData
+    {
+        [Header("Movement")]
+        public float WalkSpeed;
+        public float RunSpeed;
+        [Header("Jump")]
+        public float JumpHeight;
+        public float Gravity;
+        public LayerMask GroundMask;
+        [Header("DetectionSize")]
+        public Vector2 size;
+        [Header("Stats")]
+        public float MaxHealthPoint;
     }
 }
