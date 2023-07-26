@@ -13,6 +13,7 @@ namespace Platformer
         [SerializeField] private CameraController cameraController;
         [SerializeField] private Environment environment;
         [SerializeField] private EnvironmentConfig environmentConfig;
+        [SerializeField] private HealthBarUI healthBar;
 
 
 
@@ -21,6 +22,8 @@ namespace Platformer
             IPlayerInput playerInput = GetPlayerInput();
             player.Construct(playerInput, playerConfig.config);
             player.Initialize();
+
+            healthBar.Construct(player);
 
             cameraController.Construct(player.transform);
 
