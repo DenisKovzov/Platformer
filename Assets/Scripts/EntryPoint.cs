@@ -24,8 +24,8 @@ namespace Platformer
 
         private void Awake()
         {
-            IPlayerInput playerInput = GetPlayerInput();
-            player.Construct(playerInput, playerConfig.config);
+            PlayerInputController playerInputController = GetPlayerInputController();
+            player.Construct(playerInputController, playerConfig.config);
             player.Initialize();
 
             healthBar.Construct(player);
@@ -40,10 +40,9 @@ namespace Platformer
 
             Dictionary<Type, State> states = new Dictionary<Type, State>();
             states.Add(typeof(InitializeState), new InitializeState(stateMachine, startPoint.position, player, new List<IResetable>()));
-            states.Add(typeof(GameplayState), new GameplayState(stateMachine, playerInput));
-            states.Add(typeof(PauseState), new PauseState(stateMachine, playerInput, new List<IPauseable>(), pauseMenu));
+            states.Add(typeof(GameplayState), new GameplayState(stateMachine, playerInputController));
+            states.Add(typeof(PauseState), new PauseState(stateMachine, playerInputController, new List<IPauseable>() { playerInputController }, pauseMenu));
             states.Add(typeof(EndGameState), new EndGameState(stateMachine, wonScreenUI, loseScreenUI));
-
             stateMachine.AddStates(states);
 
             stateMachine.EnterIn<InitializeState>();
@@ -56,12 +55,15 @@ namespace Platformer
         }
 
 
-        private IPlayerInput GetPlayerInput()
+        private PlayerInputController GetPlayerInputController()
         {
             GameObject gameObject = new GameObject();
             gameObject.name = "Input";
 
-            return gameObject.AddComponent<DekstopPlayerInput>();
+            PlayerInputController inputController = gameObject.AddComponent<PlayerInputController>();
+            inputController.Construct(new DekstopPlayerInput());
+
+            return inputController;
 
         }
 

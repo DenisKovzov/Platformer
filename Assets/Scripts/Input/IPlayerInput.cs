@@ -10,5 +10,7 @@ namespace Platformer
         public event Action OnJump;
         public float GetHorizontalMovement();
         public bool IsRunning();
+
+        public void UpdateInput();
     }
 }
