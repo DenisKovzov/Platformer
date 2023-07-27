@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Platformer
 {
-    public interface IPlayerInput
+    public interface IPlayerInput : IPauseToggle
     {
         public event Action OnJump;
         public float GetHorizontalMovement();

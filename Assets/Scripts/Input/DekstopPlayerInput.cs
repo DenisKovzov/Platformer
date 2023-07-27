@@ -8,6 +8,7 @@ namespace Platformer
     public class DekstopPlayerInput : MonoBehaviour, IPlayerInput
     {
         public event Action OnJump;
+        public event Action OnTogglePause;
 
         public float GetHorizontalMovement()
         {
@@ -24,6 +25,11 @@ namespace Platformer
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 OnJump?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnTogglePause?.Invoke();
             }
         }
     }

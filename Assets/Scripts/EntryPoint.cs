@@ -14,7 +14,12 @@ namespace Platformer
         [SerializeField] private Environment environment;
         [SerializeField] private EnvironmentConfig environmentConfig;
         [SerializeField] private HealthBarUI healthBar;
+        [SerializeField] private Transform startPoint;
+        [SerializeField] private PauseMenuUI pauseMenu;
+        [SerializeField] private WonScreenUI wonScreenUI;
+        [SerializeField] private LoseScreenUI loseScreenUI;
 
+        private GameStateMachine stateMachine = new GameStateMachine();
 
 
         private void Awake()
@@ -33,6 +38,21 @@ namespace Platformer
                 e.Initialize();
             });
 
+            Dictionary<Type, State> states = new Dictionary<Type, State>();
+            states.Add(typeof(InitializeState), new InitializeState(stateMachine, startPoint.position, player, new List<IResetable>()));
+            states.Add(typeof(GameplayState), new GameplayState(stateMachine, playerInput));
+            states.Add(typeof(PauseState), new PauseState(stateMachine, playerInput, new List<IPauseable>(), pauseMenu));
+            states.Add(typeof(EndGameState), new EndGameState(stateMachine, wonScreenUI, loseScreenUI));
+
+            stateMachine.AddStates(states);
+
+            stateMachine.EnterIn<InitializeState>();
+        }
+
+
+        private void Update()
+        {
+            stateMachine.Update();
         }
 
 
@@ -44,6 +64,7 @@ namespace Platformer
             return gameObject.AddComponent<DekstopPlayerInput>();
 
         }
+
     }
 
     [Serializable]

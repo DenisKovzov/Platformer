@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Platformer
 {
-    public class PauseMenuUI : MonoBehaviour
+    public class PauseMenuUI : BaseScreenUI
     {
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button menuButton;
 
+        private GameStateMachine stateMachine;
+
+        public void Construct(GameStateMachine stateMachine)
+        {
+            this.stateMachine = stateMachine;
+        }
+
         private void Start()
         {
+            Hide();
             resumeButton.onClick.AddListener(ResumeGame);
             restartButton.onClick.AddListener(RestartGame);
             menuButton.onClick.AddListener(EnterMenu);
@@ -20,12 +27,12 @@ namespace Platformer
 
         private void ResumeGame()
         {
-            Debug.Log("Resume Game");
+            stateMachine.EnterIn<GameplayState>();
         }
 
         private void RestartGame()
         {
-            Debug.Log("Restart Game");
+            stateMachine.EnterIn<InitializeState>();
         }
 
         private void EnterMenu()
