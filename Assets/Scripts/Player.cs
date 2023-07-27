@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Platformer
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player : MonoBehaviour, IDamageable, IInitializable
+    public class Player : MonoBehaviour, IDamageable, IInitializable, IResetable
     {
         [SerializeField] private Transform groundDetection;
         private IPlayerInput input;
@@ -18,9 +18,15 @@ namespace Platformer
 
         public bool IsRunning => input.IsRunning();
         public Vector2 Velocity => rigidBody.velocity;
+
+        public float CurrentHealth => currentHealthPoint;
+
+        public float MaxHealth => config.MaxHealthPoint;
+
         public event Action OnJump;
         public event Action OnGround;
         public event Action OnDeath;
+        public event Action OnHealthChanged;
 
         public void Construct(IPlayerInput input, PlayerData config)
         {
@@ -89,6 +95,7 @@ namespace Platformer
             }
 
             currentHealthPoint -= value;
+            OnHealthChanged?.Invoke();
             if (currentHealthPoint < 0)
             {
                 currentHealthPoint = 0;
@@ -104,6 +111,11 @@ namespace Platformer
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(groundDetection.position, config.size);
+        }
+
+        public void Reset()
+        {
+            currentHealthPoint = MaxHealth;
         }
     }
     
