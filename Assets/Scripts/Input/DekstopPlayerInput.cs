@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Platformer
 {
-    public class DekstopPlayerInput : MonoBehaviour, IPlayerInput
+    public class DekstopPlayerInput : IPlayerInput
     {
         public event Action OnJump;
+        public event Action OnTogglePause;
 
         public float GetHorizontalMovement()
         {
@@ -19,11 +20,16 @@ namespace Platformer
             return Input.GetKey(KeyCode.LeftShift);
         }
 
-        private void Update()
+        public void UpdateInput()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 OnJump?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnTogglePause?.Invoke();
             }
         }
     }
