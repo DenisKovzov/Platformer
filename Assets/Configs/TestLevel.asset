@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TestLevel
   m_EditorClassIdentifier: 
   water:
-    Damage: 1
+    Damage: 999

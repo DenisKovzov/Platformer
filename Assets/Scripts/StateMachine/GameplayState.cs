@@ -8,14 +8,17 @@ namespace Platformer
     public class GameplayState : State
     {
         private IPlayerInput input;
-        public GameplayState(GameStateMachine stateMachine, IPlayerInput input) : base(stateMachine)
+        private Level level;
+        public GameplayState(GameStateMachine stateMachine, IPlayerInput input, Level level) : base(stateMachine)
         {
             this.input = input;
+            this.level = level;
         }
 
         public override void Enter()
         {
             input.OnTogglePause += IPlayerInput_OnTogglePause;
+            level.OnGameResult += Level_OnGameResult;
         }
 
         // Test
@@ -23,20 +26,25 @@ namespace Platformer
         private float timeToWin = 10f;
         public override void Update()
         {
-            elapsedTime += Time.deltaTime;
+            // elapsedTime += Time.deltaTime;
 
-            if (elapsedTime >= timeToWin)
-            {
-                StateMachine.EnterIn<EndGameState>();
-            }
+            // if (elapsedTime >= timeToWin)
+            // {
+            //     StateMachine.EnterIn<EndGameState>();
+            // }
 
         }
 
         public override void Exit()
         {
             input.OnTogglePause -= IPlayerInput_OnTogglePause;
+            level.OnGameResult -= Level_OnGameResult;
         }
 
+        private void Level_OnGameResult()
+        {
+            StateMachine.EnterIn<EndGameState>();
+        }
 
         private void IPlayerInput_OnTogglePause()
         {
