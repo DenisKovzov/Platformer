@@ -8,27 +8,33 @@ namespace Platformer
     {
         private WonScreenUI wonScreenUI;
         private LoseScreenUI loseScreenUI;
+        private Level level;
 
         public EndGameState(
-            GameStateMachine stateMachine, 
-            WonScreenUI wonScreenUI, 
-            LoseScreenUI loseScreenUI) : base(stateMachine)
+            GameStateMachine stateMachine,
+            WonScreenUI wonScreenUI,
+            LoseScreenUI loseScreenUI,
+            Level level) : base(stateMachine)
         {
             this.wonScreenUI = wonScreenUI;
             this.loseScreenUI = loseScreenUI;
+            this.level = level;
         }
 
-        private bool hasWin = true;
 
         public override void Enter()
         {
-            if (hasWin)
+            if (level.GetResult() == Level.ResultState.Win)
             {
                 wonScreenUI.Show();
             }
-            else
+            else if (level.GetResult() == Level.ResultState.Lose)
             {
                 loseScreenUI.Show();
+            }
+            else
+            {
+                throw new System.Exception("Incorrect Game result");
             }
         }
 

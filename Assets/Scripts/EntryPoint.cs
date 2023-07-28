@@ -38,14 +38,25 @@ namespace Platformer
                 e.Initialize();
             });
 
+            pauseMenu.Construct(stateMachine);
+            loseScreenUI.Construct(stateMachine);
+
+            pauseMenu.Hide();
+            wonScreenUI.Hide();
+            loseScreenUI.Hide();
+
+            Level level = GetLevel();
+
             Dictionary<Type, State> states = new Dictionary<Type, State>();
-            states.Add(typeof(InitializeState), new InitializeState(stateMachine, startPoint.position, player, new List<IResetable>()));
-            states.Add(typeof(GameplayState), new GameplayState(stateMachine, playerInputController));
+            states.Add(typeof(StartGameState), new StartGameState(stateMachine, startPoint.position, player, 
+            new List<IResetable>() {level}));
+
+            states.Add(typeof(GameplayState), new GameplayState(stateMachine, playerInputController, level));
             states.Add(typeof(PauseState), new PauseState(stateMachine, playerInputController, new List<IPauseable>() { playerInputController }, pauseMenu));
-            states.Add(typeof(EndGameState), new EndGameState(stateMachine, wonScreenUI, loseScreenUI));
+            states.Add(typeof(EndGameState), new EndGameState(stateMachine, wonScreenUI, loseScreenUI, level));
             stateMachine.AddStates(states);
 
-            stateMachine.EnterIn<InitializeState>();
+            stateMachine.EnterIn<StartGameState>();
         }
 
 
@@ -54,6 +65,20 @@ namespace Platformer
             stateMachine.Update();
         }
 
+        private Level GetLevel()
+        {
+            List<ICondition> winConditionList = new List<ICondition>();
+            List<ICondition> loseConditionList = new List<ICondition>();
+
+            foreach (var detector in environment.winTargets)
+            {
+                winConditionList.Add(new PlayerRichTargetCondition(detector));
+            }
+
+            loseConditionList.Add(new PlayerDeathCondition(player));
+
+            return new Level(winConditionList, loseConditionList);
+        }
 
         private PlayerInputController GetPlayerInputController()
         {
@@ -73,5 +98,6 @@ namespace Platformer
     public class Environment
     {
         public List<DamageDealer> waterList;
+        public List<TriggerDetector> winTargets;
     }
 }
