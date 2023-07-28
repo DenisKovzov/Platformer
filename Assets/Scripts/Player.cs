@@ -19,7 +19,19 @@ namespace Platformer
         public bool IsRunning => input.IsRunning();
         public Vector2 Velocity => rigidBody.velocity;
 
-        public float CurrentHealth => currentHealthPoint;
+        public float CurrentHealth
+        {
+            get
+            {
+                return currentHealthPoint;
+            }
+
+            private set
+            {
+                currentHealthPoint = value;
+                OnHealthChanged?.Invoke();
+            }
+        }
 
         public float MaxHealth => config.MaxHealthPoint;
 
@@ -37,7 +49,7 @@ namespace Platformer
         public void Initialize()
         {
             // TODO add unsubscribe
-            currentHealthPoint = config.MaxHealthPoint;
+            CurrentHealth = config.MaxHealthPoint;
             input.OnJump += Jump;
 
             rigidBody = GetComponent<Rigidbody2D>();
@@ -91,14 +103,12 @@ namespace Platformer
                 Debug.LogError($"Damage is less than zero: {value}", this);
             }
 
-            currentHealthPoint -= value;
-            OnHealthChanged?.Invoke();
-            if (currentHealthPoint < 0)
+            CurrentHealth = Mathf.Max(CurrentHealth - value, 0);
+
+            if (CurrentHealth <= 0)
             {
-                currentHealthPoint = 0;
                 OnDeath?.Invoke();
             }
-
         }
 
         private void OnDrawGizmosSelected()
@@ -112,12 +122,12 @@ namespace Platformer
 
         public void Reset()
         {
-            currentHealthPoint = MaxHealth;
+            CurrentHealth = MaxHealth;
             rigidBody.velocity = Vector2.zero;
             horizontal = 0;
         }
     }
-    
+
     [Serializable]
     public struct PlayerData
     {

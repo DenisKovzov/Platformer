@@ -189,6 +189,8 @@ MonoBehaviour:
   environment:
     waterList:
     - {fileID: 1767462420}
+    winTargets:
+    - {fileID: 1641332700}
   environmentConfig: {fileID: 11400000, guid: 354df662becbbb643a9cbcc3c4ac24a4, type: 2}
   healthBar: {fileID: 195245684}
   startPoint: {fileID: 696345805}
@@ -3231,6 +3233,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1641332698}
   - component: {fileID: 1641332699}
+  - component: {fileID: 1641332701}
+  - component: {fileID: 1641332700}
   m_Layer: 0
   m_Name: Sign_1
   m_TagString: Untagged
@@ -3303,6 +3307,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1641332700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641332697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c892be58ff9cc1947af133a5b8166c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &1641332701
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641332697}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.984375, y: 1.015625}
+    newSize: {x: 0.984375, y: 1.015625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.984375, y: 1.015625}
+  m_EdgeRadius: 0
 --- !u!1 &1661709943
 GameObject:
   m_ObjectHideFlags: 0
