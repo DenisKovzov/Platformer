@@ -38,14 +38,21 @@ namespace Platformer
                 e.Initialize();
             });
 
+            pauseMenu.Construct(stateMachine);
+            loseScreenUI.Construct(stateMachine);
+
+            pauseMenu.Hide();
+            wonScreenUI.Hide();
+            loseScreenUI.Hide();
+
             Dictionary<Type, State> states = new Dictionary<Type, State>();
-            states.Add(typeof(InitializeState), new InitializeState(stateMachine, startPoint.position, player, new List<IResetable>()));
+            states.Add(typeof(StartGameState), new StartGameState(stateMachine, startPoint.position, player, new List<IResetable>()));
             states.Add(typeof(GameplayState), new GameplayState(stateMachine, playerInputController));
             states.Add(typeof(PauseState), new PauseState(stateMachine, playerInputController, new List<IPauseable>() { playerInputController }, pauseMenu));
             states.Add(typeof(EndGameState), new EndGameState(stateMachine, wonScreenUI, loseScreenUI));
             stateMachine.AddStates(states);
 
-            stateMachine.EnterIn<InitializeState>();
+            stateMachine.EnterIn<StartGameState>();
         }
 
 

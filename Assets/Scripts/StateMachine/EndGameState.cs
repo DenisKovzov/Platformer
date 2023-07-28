@@ -18,7 +18,7 @@ namespace Platformer
             this.loseScreenUI = loseScreenUI;
         }
 
-        private bool hasWin = true;
+        private bool hasWin = false;
 
         public override void Enter()
         {

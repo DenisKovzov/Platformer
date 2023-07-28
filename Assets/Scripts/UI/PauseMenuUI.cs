@@ -19,7 +19,6 @@ namespace Platformer
 
         private void Start()
         {
-            Hide();
             resumeButton.onClick.AddListener(ResumeGame);
             restartButton.onClick.AddListener(RestartGame);
             menuButton.onClick.AddListener(EnterMenu);
@@ -32,12 +31,13 @@ namespace Platformer
 
         private void RestartGame()
         {
-            stateMachine.EnterIn<InitializeState>();
+            stateMachine.EnterIn<StartGameState>();
         }
 
         private void EnterMenu()
         {
             Debug.Log("Enter to Menu");
+            Application.Quit();
         }
     }
 }

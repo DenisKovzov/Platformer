@@ -5,13 +5,13 @@ using UnityEngine;
 namespace Platformer
 {
 
-    public class InitializeState : State
+    public class StartGameState : State
     {
         private Vector2 startPoint;
         private Player player;
         private List<IResetable> resetableObjectList;
 
-        public InitializeState(GameStateMachine stateMachine, Vector2 startPoint, Player player, List<IResetable> resetableObjectList) : base(stateMachine)
+        public StartGameState(GameStateMachine stateMachine, Vector2 startPoint, Player player, List<IResetable> resetableObjectList) : base(stateMachine)
         {
             this.startPoint = startPoint;
             this.player = player;

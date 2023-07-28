@@ -39,10 +39,7 @@ namespace Platformer
             // TODO add unsubscribe
             currentHealthPoint = config.MaxHealthPoint;
             input.OnJump += Jump;
-        }
 
-        private void Awake()
-        {
             rigidBody = GetComponent<Rigidbody2D>();
         }
 
@@ -116,6 +113,8 @@ namespace Platformer
         public void Reset()
         {
             currentHealthPoint = MaxHealth;
+            rigidBody.velocity = Vector2.zero;
+            horizontal = 0;
         }
     }
     
