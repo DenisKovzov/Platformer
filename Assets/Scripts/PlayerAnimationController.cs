@@ -51,7 +51,7 @@ namespace Platformer
         private void HandleFacing()
         {
             bool isFacingRight = transform.localScale.x > 0;
-            float horizontal = player.Velocity.x;
+            float horizontal = player.HorizontalMovement;
 
             if ((isFacingRight && horizontal < 0f) || (!isFacingRight && horizontal > 0f))
             {
@@ -70,7 +70,7 @@ namespace Platformer
                 return;
 
 
-            float horizontal = player.Velocity.x;
+            float horizontal = player.HorizontalMovement;
 
             if (horizontal == 0f)
             {
