@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -35,7 +34,6 @@ namespace Platformer
             environment.waterList.ForEach(e =>
             {
                 e.Construct(environmentConfig.water);
-                e.Initialize();
             });
 
             pauseMenu.Construct(stateMachine);
@@ -57,12 +55,6 @@ namespace Platformer
             stateMachine.AddStates(states);
 
             stateMachine.EnterIn<StartGameState>();
-        }
-
-
-        private void Update()
-        {
-            stateMachine.Update();
         }
 
         private Level GetLevel()

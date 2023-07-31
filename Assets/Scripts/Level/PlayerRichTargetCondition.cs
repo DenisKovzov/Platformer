@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer
@@ -17,6 +15,7 @@ namespace Platformer
 
             detector.OnTriggerEnter += TriggerDetector_OnTriggerEnter;
         }
+
 
         private void TriggerDetector_OnTriggerEnter(Collider2D other)
         {
@@ -35,6 +34,12 @@ namespace Platformer
         public void Reset()
         {
             hasRich = false;
+        }
+
+        
+        ~PlayerRichTargetCondition()
+        {
+            detector.OnTriggerEnter -= TriggerDetector_OnTriggerEnter;
         }
     }
 

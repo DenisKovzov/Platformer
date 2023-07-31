@@ -12,6 +12,11 @@ namespace Platformer
             menuButton.onClick.AddListener(EnterMenu);
         }
 
+        private void OnDestroy()
+        {
+            menuButton.onClick.RemoveListener(EnterMenu);
+        }
+
         private void EnterMenu()
         {
             Debug.Log("Enter to Menu");

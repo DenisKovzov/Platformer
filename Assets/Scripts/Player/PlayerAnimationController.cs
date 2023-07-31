@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer
@@ -25,7 +22,6 @@ namespace Platformer
 
         private void Start()
         {
-            // TODO add unsubscribe
             player.OnJump += Player_OnJump;
             player.OnGround += Player_OnGround;
         }
@@ -34,6 +30,12 @@ namespace Platformer
         {
             HandleFacing();
             HandleMovement();
+        }
+
+        private void OnDestroy()
+        {
+            player.OnJump -= Player_OnJump;
+            player.OnGround -= Player_OnGround;
         }
 
         private void Player_OnJump()
@@ -51,7 +53,7 @@ namespace Platformer
         private void HandleFacing()
         {
             bool isFacingRight = transform.localScale.x > 0;
-            float horizontal = player.Velocity.x;
+            float horizontal = player.HorizontalMovement;
 
             if ((isFacingRight && horizontal < 0f) || (!isFacingRight && horizontal > 0f))
             {
@@ -70,7 +72,7 @@ namespace Platformer
                 return;
 
 
-            float horizontal = player.Velocity.x;
+            float horizontal = player.HorizontalMovement;
 
             if (horizontal == 0f)
             {

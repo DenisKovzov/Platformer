@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer
@@ -12,12 +10,13 @@ namespace Platformer
         private IPlayerInput input;
         private PlayerData config;
 
-        private float horizontal;
+        private float horizontalMovement;
         private Rigidbody2D rigidBody;
         private float currentHealthPoint;
 
         public bool IsRunning => input.IsRunning();
         public Vector2 Velocity => rigidBody.velocity;
+        public float HorizontalMovement => horizontalMovement;
 
         public float CurrentHealth
         {
@@ -48,7 +47,6 @@ namespace Platformer
 
         public void Initialize()
         {
-            // TODO add unsubscribe
             CurrentHealth = config.MaxHealthPoint;
             input.OnJump += Jump;
 
@@ -63,14 +61,19 @@ namespace Platformer
             ApplyGravity();
         }
 
+        private void OnDestroy()
+        {
+            input.OnJump -= Jump;
+        }
+
         private void HandleInput()
         {
-            horizontal = input.GetHorizontalMovement();
+            horizontalMovement = input.GetHorizontalMovement();
         }
         private void Move()
         {
             float speed = input.IsRunning() ? config.RunSpeed : config.WalkSpeed;
-            rigidBody.velocity = new Vector2(horizontal * speed, rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(horizontalMovement * speed, rigidBody.velocity.y);
         }
 
 
@@ -124,7 +127,7 @@ namespace Platformer
         {
             CurrentHealth = MaxHealth;
             rigidBody.velocity = Vector2.zero;
-            horizontal = 0;
+            horizontalMovement = 0;
         }
     }
 
