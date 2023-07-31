@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer
 {
     [RequireComponent(typeof(TriggerDetector))]
-    public class DamageDealer : MonoBehaviour, IInitializable
+    public class DamageDealer : MonoBehaviour
     {
         private TriggerDetector detector;
         private DamageDealerData config;
@@ -16,7 +14,7 @@ namespace Platformer
             this.config = config;
         }
 
-        public void Initialize()
+        private void Awake()
         {
             detector = GetComponent<TriggerDetector>();
 
@@ -29,6 +27,11 @@ namespace Platformer
             {
                 damageable.ApplyDamage(config.Damage);
             }
+        }
+
+        private void OnDestroy()
+        {
+            detector.OnTriggerEnter -= TriggerDetector_OnTriggerEnter;
         }
     }
 

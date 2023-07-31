@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +21,13 @@ namespace Platformer
             resumeButton.onClick.AddListener(ResumeGame);
             restartButton.onClick.AddListener(RestartGame);
             menuButton.onClick.AddListener(EnterMenu);
+        }
+
+        private void OnDestroy()
+        {
+            resumeButton.onClick.RemoveListener(ResumeGame);
+            restartButton.onClick.RemoveListener(RestartGame);
+            menuButton.onClick.RemoveListener(EnterMenu);
         }
 
         private void ResumeGame()

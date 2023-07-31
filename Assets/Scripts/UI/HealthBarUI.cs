@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,11 +17,17 @@ namespace Platformer
             UpdateUI();
         }
 
+        private void OnDestroy()
+        {
+            target.OnHealthChanged -= UpdateUI;
+        }
+
         private void UpdateUI()
         {
             slider.maxValue = target.MaxHealth;
             slider.value = target.CurrentHealth;
         }
+
     }
 
 }

@@ -31,10 +31,5 @@ namespace Platformer
                 throw new KeyNotFoundException();
             }
         }
-
-        public void Update()
-        {
-            currentState?.Update();
-        }
     }
 }

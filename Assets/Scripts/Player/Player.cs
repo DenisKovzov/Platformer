@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer
@@ -49,7 +47,6 @@ namespace Platformer
 
         public void Initialize()
         {
-            // TODO add unsubscribe
             CurrentHealth = config.MaxHealthPoint;
             input.OnJump += Jump;
 
@@ -62,6 +59,11 @@ namespace Platformer
             HandleInput();
             Move();
             ApplyGravity();
+        }
+
+        private void OnDestroy()
+        {
+            input.OnJump -= Jump;
         }
 
         private void HandleInput()

@@ -21,6 +21,12 @@ namespace Platformer
             menuButton.onClick.AddListener(EnterMenu);
         }
 
+        private void OnDestroy()
+        {
+            restartButton.onClick.RemoveListener(RestartGame);
+            menuButton.onClick.RemoveListener(EnterMenu);
+        }
+
         private void RestartGame()
         {
             stateMachine.EnterIn<StartGameState>();

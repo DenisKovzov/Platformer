@@ -1,4 +1,7 @@
-public interface IResetable
+namespace Platformer
 {
-    void Reset();
+    public interface IResetable
+    {
+        void Reset();
+    }
 }

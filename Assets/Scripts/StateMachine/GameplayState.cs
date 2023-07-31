@@ -21,20 +21,6 @@ namespace Platformer
             level.OnGameResult += Level_OnGameResult;
         }
 
-        // Test
-        private float elapsedTime;
-        private float timeToWin = 10f;
-        public override void Update()
-        {
-            // elapsedTime += Time.deltaTime;
-
-            // if (elapsedTime >= timeToWin)
-            // {
-            //     StateMachine.EnterIn<EndGameState>();
-            // }
-
-        }
-
         public override void Exit()
         {
             input.OnTogglePause -= IPlayerInput_OnTogglePause;

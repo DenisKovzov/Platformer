@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer
@@ -25,7 +22,6 @@ namespace Platformer
 
         private void Start()
         {
-            // TODO add unsubscribe
             player.OnJump += Player_OnJump;
             player.OnGround += Player_OnGround;
         }
@@ -34,6 +30,12 @@ namespace Platformer
         {
             HandleFacing();
             HandleMovement();
+        }
+
+        private void OnDestroy()
+        {
+            player.OnJump -= Player_OnJump;
+            player.OnGround -= Player_OnGround;
         }
 
         private void Player_OnJump()
