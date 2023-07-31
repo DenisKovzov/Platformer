@@ -18,11 +18,6 @@ namespace Platformer
         {
 
         }
-
-        public virtual void Update()
-        {
-
-        }
     }
 
 }

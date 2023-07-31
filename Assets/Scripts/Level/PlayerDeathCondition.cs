@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Platformer
 {
@@ -32,6 +29,11 @@ namespace Platformer
         public void Reset()
         {
             hasDeath = false;
+        }
+
+        ~PlayerDeathCondition()
+        {
+            player.OnDeath -= Player_OnDeath;
         }
     }
 
